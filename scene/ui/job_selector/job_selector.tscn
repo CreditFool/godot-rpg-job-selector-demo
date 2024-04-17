@@ -1,0 +1,111 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw0uxxvlp7ak4"]
+
+[ext_resource type="Script" path="res://scene/ui/job_selector/job_selector.gd" id="1_ccefy"]
+[ext_resource type="Script" path="res://script/csv_loader.gd" id="2_0dol2"]
+
+[node name="JobSelector" type="Control" node_paths=PackedStringArray("job_data_loader", "job_list_option", "job_name_label", "job_description_label", "skill_list_container")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ccefy")
+job_data_loader = NodePath("JobDataLoader")
+job_list_option = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/JobListOption")
+job_name_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/JobName")
+job_description_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/JobDescription")
+skill_list_container = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/SkillList")
+
+[node name="JobDataLoader" type="Node" parent="."]
+script = ExtResource("2_0dol2")
+file_path = "res://resource/class.csv"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ChooseJob" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choose Job:"
+
+[node name="JobListOption" type="OptionButton" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+selected = 0
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="JobName" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 25
+text = "Class"
+horizontal_alignment = 1
+
+[node name="JobDescription" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Lorem Ipsum Dolor Sit Amet"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SkillLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Available Skill:"
+
+[node name="SkillList" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/SkillList"]
+layout_mode = 2
+text = "- Skilll 1"
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/SkillList"]
+layout_mode = 2
+text = "- Skilll 2"
+
+[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/SkillList"]
+layout_mode = 2
+text = "- Skilll 3"
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "ACCEPT"
+
+[connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/JobListOption" to="." method="_on_job_list_option_item_selected"]
